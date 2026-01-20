@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div>
       <div className="w-full h-full bg-center flex items-center justify-center">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {arts.map((art) => (
             <ArtsCard key={art._id} art={art}></ArtsCard>
           ))}

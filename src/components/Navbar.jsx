@@ -1,24 +1,35 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import Login from "./Login";
+import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
+  const { user, signOutUser } = useAppContext();
+
+  const handleSignOut = () => {
+    signOutUser().then().catch();
+  };
   const links = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/profile">Explore Artworks</NavLink>
+        <NavLink to="/explore">Explore Artworks</NavLink>
       </li>
-      <li>
-        <NavLink to="/profile">Add Artwork</NavLink>
-      </li>
-      <li>
-        <NavLink to="/profile">My Gallery</NavLink>
-      </li>
-      <li>
-        <NavLink to="/profile">My Favorites</NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/addArtwork">Add Artwork</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myGallery">My Gallery</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myFavorites">My Favorites</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -55,13 +66,21 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex mr-10">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      {/* <div className="navbar-end">
-    <a className="btn">Button</a>
-  </div> */}
-      <div className="login-btn flex gap-5">
-        {/* <img src={user} alt="" /> */}
-        <button className="btn btn-primary">Login</button>
+      <div className="navbar-end">
+        {user ? (
+          <a onClick={handleSignOut} className="btn">
+            Sign Out
+          </a>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
       </div>
+      {/* <div className="login-btn flex gap-5"> */}
+      {/* <img src={user} alt="" /> */}
+      {/* <button onClick={Login} className="btn btn-primary">
+        Login
+      </button> */}
+      {/* </div> */}
     </div>
   );
 };

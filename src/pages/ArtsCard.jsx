@@ -2,29 +2,41 @@ import React from "react";
 // import { FaStar } from "react-icons/fa";
 // import { Link, useLoaderData } from "react-router";
 
-const ArtsCard = () => {
-
+const ArtsCard = ({ art }) => {
   return (
-   <div>
-    <div className="card bg-base-100 w-96 shadow-sm">
-  <figure>
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-      alt="Shoes" />
-  </figure>
-  <div className="card-body">
-    <h2 className="card-title">
-    {/* {data.title} */}
-      {/* <div className="badge badge-secondary">{data.category}</div> */}
-    </h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-    <div className="card-actions justify-end">
-      <div className="badge badge-outline">Fashion</div>
-      <div className="badge badge-outline">Products</div>
+    <div>
+      <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow">
+        <figure>
+          <img
+            src={
+              art?.image ||
+              "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            }
+            alt={art?.title || "Art"}
+            className="w-full h-48 object-cover"
+          />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title text-lg">
+            {art?.title || "Untitled"}
+            {art?.category && (
+              <div className="badge badge-secondary text-xs">
+                {art.category}
+              </div>
+            )}
+          </h2>
+          <p className="text-sm">
+            {art?.description || "No description available"}
+          </p>
+          <div className="card-actions justify-between items-center mt-4">
+            <div className="text-lg font-bold text-primary">
+              ${art?.price || "N/A"}
+            </div>
+            <button className="btn btn-sm btn-primary">View Details</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-   </div>
   );
 };
 
