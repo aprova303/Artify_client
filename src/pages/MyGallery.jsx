@@ -9,10 +9,10 @@ const MyGallery = () => {
   const [showModal, setShowModal] = useState(false);
   const [editingArtwork, setEditingArtwork] = useState(null);
   const [formData, setFormData] = useState({
-    imageUrl: "",
+    image: "",
     title: "",
     category: "Painting",
-    medium: "",
+    mediumTools: "",
     description: "",
     dimensions: "",
     price: "",
@@ -26,7 +26,7 @@ const MyGallery = () => {
   const fetchUserArtworks = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`/api/artworks/user/${user?.uid}`);
+      const { data } = await axios.get(`/api/artworks/user/${user?.email}`);
       if (data.success) {
         setArtworks(data.data || []);
       } else {
@@ -34,21 +34,8 @@ const MyGallery = () => {
       }
     } catch (error) {
       console.error("Error fetching artworks:", error);
-      // Dummy data for development
-      setArtworks([
-        {
-          _id: "1",
-          imageUrl:
-            "https://images.unsplash.com/photo-1579783902614-e3fb5141b0cb?w=500",
-          title: "Mountain Sunset",
-          category: "Painting",
-          medium: "Oil on Canvas",
-          description: "Beautiful sunset over mountain peaks",
-          dimensions: "100x80 cm",
-          price: 5000,
-          visibility: "Public",
-        },
-      ]);
+      toast.error("Failed to load your artworks");
+      setArtworks([]);
     } finally {
       setLoading(false);
     }
@@ -57,10 +44,10 @@ const MyGallery = () => {
   const handleEdit = (artwork) => {
     setEditingArtwork(artwork);
     setFormData({
-      imageUrl: artwork.imageUrl,
+      image: artwork.image,
       title: artwork.title,
       category: artwork.category,
-      medium: artwork.medium,
+      mediumTools: artwork.mediumTools,
       description: artwork.description,
       dimensions: artwork.dimensions || "",
       price: artwork.price || "",
@@ -81,10 +68,10 @@ const MyGallery = () => {
     e.preventDefault();
 
     if (
-      !formData.imageUrl ||
+      !formData.image ||
       !formData.title ||
       !formData.category ||
-      !formData.medium ||
+      !formData.mediumTools ||
       !formData.description
     ) {
       toast.error("Please fill in all required fields");
@@ -163,7 +150,7 @@ const MyGallery = () => {
               >
                 <div className="h-64 bg-gray-200 overflow-hidden">
                   <img
-                    src={artwork.imageUrl}
+                    src={artwork.image}
                     alt={artwork.title}
                     className="w-full h-full object-cover"
                   />
@@ -174,7 +161,7 @@ const MyGallery = () => {
                     {artwork.title}
                   </h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    {artwork.category} • {artwork.medium}
+                    {artwork.category} • {artwork.mediumTools}
                   </p>
 
                   {/* Visibility Badge */}
@@ -254,8 +241,8 @@ const MyGallery = () => {
                   </label>
                   <input
                     type="url"
-                    name="imageUrl"
-                    value={formData.imageUrl}
+                    name="image"
+                    value={formData.image}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
                     required
@@ -305,8 +292,8 @@ const MyGallery = () => {
                     </label>
                     <input
                       type="text"
-                      name="medium"
-                      value={formData.medium}
+                      name="mediumTools"
+                      value={formData.mediumTools}
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
                       required

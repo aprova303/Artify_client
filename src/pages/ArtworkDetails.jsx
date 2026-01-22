@@ -12,12 +12,24 @@ const ArtworkDetails = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [likeLoading, setLikeLoading] = useState(false);
+  const [totalArtworks, setTotalArtworks] = useState(0);
 
   useEffect(() => {
     fetchArtworkDetails();
-    checkLikeStatus();
-    checkFavoriteStatus();
-  }, [id, user]);
+  }, [id]);
+
+  useEffect(() => {
+    if (user && artwork) {
+      checkLikeStatus();
+      checkFavoriteStatus();
+    }
+  }, [user, artwork]);
+
+  useEffect(() => {
+    if (artwork) {
+      fetchArtistArtworkCount();
+    }
+  }, [artwork]);
 
   const fetchArtworkDetails = async () => {
     setLoading(true);
@@ -31,33 +43,33 @@ const ArtworkDetails = () => {
       }
     } catch (error) {
       console.error("Error fetching artwork:", error);
-      // Dummy data for development
-      setArtwork({
-        _id: id,
-        imageUrl:
-          "https://images.unsplash.com/photo-1579783902614-e3fb5141b0cb?w=800",
-        title: "Mountain Sunset",
-        artistName: "John Artist",
-        artistEmail: "john@example.com",
-        category: "Painting",
-        medium: "Oil on Canvas",
-        description:
-          "A breathtaking sunset captured over majestic mountain peaks. This artwork depicts the interplay of light and shadow as the sun dips below the horizon.",
-        dimensions: "100x80 cm",
-        price: 5000,
-        likes: 24,
-        createdAt: new Date().toISOString(),
-      });
+      toast.error("Failed to load artwork details");
+      navigate("/explore");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchArtistArtworkCount = async () => {
+    try {
+      const { data } = await axios.get(
+        `/api/users/${artwork.userEmail}/artworks/count`,
+      );
+      if (data.success) {
+        setTotalArtworks(data.count);
+      }
+    } catch (error) {
+      console.error("Error fetching artist artwork count:", error);
     }
   };
 
   const checkLikeStatus = async () => {
     if (!user) return;
     try {
-      const { data } = await axios.get(`/api/artworks/${id}/liked`);
-      setIsLiked(data.isLiked);
+      const { data } = await axios.get(`/api/artworks/${id}/liked/${user.uid}`);
+      if (data.success) {
+        setIsLiked(data.isLiked);
+      }
     } catch (error) {
       console.error("Error checking like status:", error);
     }
@@ -66,8 +78,10 @@ const ArtworkDetails = () => {
   const checkFavoriteStatus = async () => {
     if (!user) return;
     try {
-      const { data } = await axios.get(`/api/favorites/${id}`);
-      setIsFavorited(data.isFavorited);
+      const { data } = await axios.get(`/api/favorites/${id}/${user.uid}`);
+      if (data.success) {
+        setIsFavorited(data.isFavorited);
+      }
     } catch (error) {
       console.error("Error checking favorite status:", error);
     }
@@ -76,6 +90,7 @@ const ArtworkDetails = () => {
   const handleLike = async () => {
     if (!user) {
       toast.error("Please login to like artworks");
+      navigate("/login");
       return;
     }
 
@@ -85,12 +100,12 @@ const ArtworkDetails = () => {
         userId: user.uid,
       });
       if (data.success) {
-        setIsLiked(!isLiked);
+        setIsLiked(data.isLiked);
         setArtwork((prev) => ({
           ...prev,
-          likes: data.likes,
+          likesCount: data.likes,
         }));
-        toast.success(isLiked ? "Removed like" : "Liked!");
+        toast.success(data.isLiked ? "Liked!" : "Removed like");
       }
     } catch (error) {
       toast.error("Error updating like status");
@@ -103,18 +118,18 @@ const ArtworkDetails = () => {
   const handleAddToFavorites = async () => {
     if (!user) {
       toast.error("Please login to add to favorites");
+      navigate("/login");
       return;
     }
 
     try {
       const { data } = await axios.post(`/api/favorites/${id}`, {
         userId: user.uid,
-        artwork: artwork,
       });
       if (data.success) {
-        setIsFavorited(!isFavorited);
+        setIsFavorited(data.isFavorited);
         toast.success(
-          isFavorited ? "Removed from favorites" : "Added to favorites!",
+          data.isFavorited ? "Added to favorites!" : "Removed from favorites",
         );
       }
     } catch (error) {
@@ -168,7 +183,7 @@ const ArtworkDetails = () => {
             {/* Image Section */}
             <div>
               <img
-                src={artwork.imageUrl}
+                src={artwork.image || "https://via.placeholder.com/500x500"}
                 alt={artwork.title}
                 className="w-full h-full object-cover rounded-lg"
               />
@@ -194,9 +209,9 @@ const ArtworkDetails = () => {
                   Artist
                 </h3>
                 <p className="text-gray-700 text-lg font-medium mb-1">
-                  {artwork.artistName}
+                  {artwork.userName}
                 </p>
-                <p className="text-gray-500 text-sm">{artwork.artistEmail}</p>
+                <p className="text-gray-500 text-sm">{artwork.userEmail}</p>
               </div>
 
               {/* Artwork Details */}
@@ -204,7 +219,7 @@ const ArtworkDetails = () => {
                 <div>
                   <p className="text-gray-600 text-sm">Medium</p>
                   <p className="text-gray-900 font-semibold">
-                    {artwork.medium}
+                    {artwork.mediumTools}
                   </p>
                 </div>
                 {artwork.dimensions && (
@@ -247,7 +262,7 @@ const ArtworkDetails = () => {
                   } ${likeLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                 >
                   <span>{isLiked ? "❤️" : "🤍"}</span>
-                  <span>Like ({artwork.likes || 0})</span>
+                  <span>Like ({artwork.likesCount || 0})</span>
                 </button>
 
                 <button
@@ -284,12 +299,13 @@ const ArtworkDetails = () => {
             </h2>
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {artwork.artistName}
+                {artwork.userName}
               </h3>
-              <p className="text-gray-600 mb-4">Email: {artwork.artistEmail}</p>
+              <p className="text-gray-600 mb-4">Email: {artwork.userEmail}</p>
               <div className="text-gray-700">
                 <p className="text-sm text-gray-600">
-                  Total Artworks: <span className="font-semibold">12</span>
+                  Total Artworks:{" "}
+                  <span className="font-semibold">{totalArtworks}</span>
                 </p>
                 <p className="text-sm text-gray-600 mt-2">
                   Joined:{" "}

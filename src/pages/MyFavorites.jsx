@@ -23,19 +23,8 @@ const MyFavorites = () => {
       }
     } catch (error) {
       console.error("Error fetching favorites:", error);
-      // Dummy data for development
-      setFavorites([
-        {
-          _id: "1",
-          imageUrl:
-            "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500",
-          title: "Urban Photography",
-          artistName: "Jane Photographer",
-          category: "Photography",
-          likes: 18,
-          description: "Capturing city life and modern architecture",
-        },
-      ]);
+      toast.error("Failed to load favorites");
+      setFavorites([]);
     } finally {
       setLoading(false);
     }
@@ -43,14 +32,14 @@ const MyFavorites = () => {
 
   const handleRemoveFromFavorites = async (artworkId) => {
     try {
-      const { data } = await axios.delete(`/api/favorites/${artworkId}`, {
-        data: { userId: user?.uid },
+      const { data } = await axios.post(`/api/favorites/${artworkId}`, {
+        userId: user?.uid,
       });
       if (data.success) {
         toast.success("Removed from favorites!");
         setFavorites(favorites.filter((fav) => fav._id !== artworkId));
       } else {
-        toast.error(data.message || "Failed to remove from favorites");
+        toast.error(data.error || "Failed to remove from favorites");
       }
     } catch (error) {
       toast.error(error.message || "Error removing from favorites");
@@ -91,9 +80,7 @@ const MyFavorites = () => {
                 {/* Image */}
                 <div className="relative overflow-hidden h-64 bg-gray-200">
                   <img
-                    src={
-                      artwork.imageUrl || "https://via.placeholder.com/400x300"
-                    }
+                    src={artwork.image || "https://via.placeholder.com/400x300"}
                     alt={artwork.title}
                     className="w-full h-full object-cover hover:scale-110 transition duration-300"
                   />
@@ -108,7 +95,7 @@ const MyFavorites = () => {
                     {artwork.title}
                   </h3>
                   <p className="text-sm text-gray-600 mb-3">
-                    by {artwork.artistName}
+                    by {artwork.userName}
                   </p>
                   <p className="text-gray-700 text-sm mb-4 line-clamp-2">
                     {artwork.description}
@@ -119,7 +106,7 @@ const MyFavorites = () => {
                     <div className="flex items-center gap-2">
                       <span className="text-red-500">❤️</span>
                       <span className="text-sm font-semibold text-gray-700">
-                        {artwork.likes || 0}
+                        {artwork.likesCount || 0}
                       </span>
                     </div>
                   </div>
@@ -127,7 +114,7 @@ const MyFavorites = () => {
                   {/* Action Buttons */}
                   <div className="flex gap-2">
                     <Link
-                      to={`/artwork/${artwork._id}`}
+                      to={`/artwork-details/${artwork._id}`}
                       className="flex-1 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-lg transition text-center font-semibold"
                     >
                       View Details

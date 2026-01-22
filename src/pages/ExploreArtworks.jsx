@@ -27,31 +27,9 @@ const ExploreArtworks = () => {
       }
     } catch (error) {
       console.error("Error fetching artworks:", error);
-      // Set dummy data for development
-      const dummyData = [
-        {
-          _id: "1",
-          imageUrl:
-            "https://images.unsplash.com/photo-1579783902614-e3fb5141b0cb?w=500",
-          title: "Mountain Sunset",
-          artistName: "John Artist",
-          category: "Painting",
-          likes: 24,
-          description: "Beautiful sunset over mountain peaks",
-        },
-        {
-          _id: "2",
-          imageUrl:
-            "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500",
-          title: "Urban Photography",
-          artistName: "Jane Photographer",
-          category: "Photography",
-          likes: 18,
-          description: "Capturing city life and modern architecture",
-        },
-      ];
-      setArtworks(dummyData);
-      setFilteredArtworks(dummyData);
+      toast.error("Failed to load artworks");
+      setArtworks([]);
+      setFilteredArtworks([]);
     } finally {
       setLoading(false);
     }

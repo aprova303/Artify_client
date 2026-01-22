@@ -6,10 +6,10 @@ const AddArtwork = () => {
   const { user, axios } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    imageUrl: "",
+    image: "",
     title: "",
     category: "Painting",
-    medium: "",
+    mediumTools: "",
     description: "",
     dimensions: "",
     price: "",
@@ -28,10 +28,10 @@ const AddArtwork = () => {
     e.preventDefault();
 
     if (
-      !formData.imageUrl ||
+      !formData.image ||
       !formData.title ||
       !formData.category ||
-      !formData.medium ||
+      !formData.mediumTools ||
       !formData.description
     ) {
       toast.error("Please fill in all required fields");
@@ -42,11 +42,8 @@ const AddArtwork = () => {
     try {
       const artworkData = {
         ...formData,
-        artistName: user?.displayName || "Anonymous",
-        artistEmail: user?.email,
-        createdAt: new Date().toISOString(),
-        likes: 0,
-        likedBy: [],
+        userName: user?.displayName || "Anonymous",
+        userEmail: user?.email,
       };
 
       const { data } = await axios.post("/api/artworks", artworkData);
@@ -54,10 +51,10 @@ const AddArtwork = () => {
       if (data.success) {
         toast.success("Artwork added successfully!");
         setFormData({
-          imageUrl: "",
+          image: "",
           title: "",
           category: "Painting",
-          medium: "",
+          mediumTools: "",
           description: "",
           dimensions: "",
           price: "",
@@ -93,8 +90,8 @@ const AddArtwork = () => {
               </label>
               <input
                 type="url"
-                name="imageUrl"
-                value={formData.imageUrl}
+                name="image"
+                value={formData.image}
                 onChange={handleChange}
                 placeholder="https://example.com/image.jpg"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
@@ -148,8 +145,8 @@ const AddArtwork = () => {
                 </label>
                 <input
                   type="text"
-                  name="medium"
-                  value={formData.medium}
+                  name="mediumTools"
+                  value={formData.mediumTools}
                   onChange={handleChange}
                   placeholder="e.g., Oil on Canvas"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
