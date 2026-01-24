@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ArtsCard from "../pages/ArtsCard";
 import { useLoaderData, useParams } from "react-router";
+import Banner from "./Banner";
+import { Fade, Zoom, Slide } from "react-awesome-reveal";
 
 const Home = () => {
   const [arts, setArts] = useState([]);
@@ -26,6 +28,39 @@ const Home = () => {
 
   return (
     <div>
+      <Banner />
+
+      <Fade>
+        <section className="my-12 py-8 px-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900 rounded-lg border-l-4 border-purple-500">
+          <Zoom triggerOnce>
+            <h2 className="text-3xl font-bold mb-2 text-purple-600 dark:text-purple-400 flex items-center gap-2">
+              ⭐ Top Artists of the Week
+            </h2>
+          </Zoom>
+          <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+            Discover the most talented artists featured this week. Explore their
+            unique styles and inspiring creations.
+          </p>
+          <div className="h-1 w-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
+          {/* Placeholder for artist cards or list */}
+        </section>
+      </Fade>
+
+      <Fade delay={200}>
+        <section className="my-12 py-8 px-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900 rounded-lg border-l-4 border-blue-500">
+          <Zoom triggerOnce>
+            <h2 className="text-3xl font-bold mb-2 text-blue-600 dark:text-blue-400 flex items-center gap-2">
+              🎨 Community Highlights
+            </h2>
+          </Zoom>
+          <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+            Check out the latest buzz from our art community. From trending
+            artworks to user spotlights and discussions.
+          </p>
+          <div className="h-1 w-20 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full"></div>
+          {/* Placeholder for highlights */}
+        </section>
+      </Fade>
       <div className="w-full h-full bg-center flex items-center justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {arts.map((art) => (
