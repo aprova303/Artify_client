@@ -6,21 +6,21 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
-
+import { Typewriter } from "react-simple-typewriter";
+import { useTheme } from "../context/ThemeContext";
 
 const slides = [
   {
     id: 1,
-    title: "Discover Stunning Artworks from Emerging Artists",
+    title: "Discover Stunning Artworks",
     subtitle:
       "Explore a world of creativity — from digital illustrations to traditional paintings. Every piece tells a story.",
-    image:
-      "https://i.ibb.co/jHcNns6/art-gallery-exhibit-modern-paintings.jpg",
+    image: "https://i.ibb.co/jHcNns6/art-gallery-exhibit-modern-paintings.jpg",
     alt: "Art gallery with modern paintings on wall",
   },
   {
     id: 2,
-    title: "Connect and Collaborate with Creative Minds",
+    title: "Connect with Creative Minds",
     subtitle:
       "Join a vibrant community of artists and art lovers. Share feedback, collaborate on projects, and grow together.",
     image:
@@ -29,16 +29,17 @@ const slides = [
   },
   {
     id: 3,
-    title: "Curate Your Personal Gallery of Favorites",
+    title: "Curate Your Personal Gallery",
     subtitle:
       "Save the artworks that inspire you. Build your own virtual gallery and express your unique artistic taste.",
-    image:
-      "https://i.ibb.co/ZJQ0c7M/abstract-art-colorful-wall-display.jpg",
+    image: "https://i.ibb.co/ZJQ0c7M/abstract-art-colorful-wall-display.jpg",
     alt: "Colorful abstract paintings displayed in an art space",
   },
 ];
 
 export default function Banner() {
+  const { isDark } = useTheme();
+
   return (
     <section aria-label="Hero slider" className="relative">
       <Swiper
@@ -50,7 +51,7 @@ export default function Banner() {
         autoplay={{
           delay: 4500,
           disableOnInteraction: true,
-          pauseOnMouseEnter: true
+          pauseOnMouseEnter: true,
         }}
         pagination={{ clickable: true }}
         navigation={true}
@@ -61,22 +62,36 @@ export default function Banner() {
           <SwiperSlide key={s.id}>
             {/* Background image */}
             <div
-              className="w-full h-full bg-center bg-cover flex items-center justify-center"
+              className={`w-full h-full bg-center bg-cover flex items-center justify-center ${
+                isDark ? "bg-gray-900" : ""
+              }`}
               style={{
                 backgroundImage: `url(${s.image})`,
-              
-                minHeight: "380px"
+                minHeight: "380px",
               }}
               role="img"
               aria-label={s.alt}
             >
               {/* Dark overlay to improve text contrast */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/40"></div>
+              <div
+                className={`absolute inset-0 ${
+                  isDark
+                    ? "bg-gradient-to-b from-gray-900/80 via-gray-900/60 to-gray-900/80"
+                    : "bg-gradient-to-b from-black/40 via-black/25 to-black/40"
+                }`}
+              ></div>
 
               {/* Content container */}
               <div className="relative z-10 max-w-4xl text-center px-6 py-12">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white drop-shadow-lg leading-tight">
-                  {s.title}
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white drop-shadow-lg leading-tight min-h-24 flex items-center justify-center">
+                  <Typewriter
+                    words={[s.title]}
+                    loop={1}
+                    cursor
+                    cursorStyle="|"
+                    typeSpeed={80}
+                    delaySpeed={1500}
+                  />
                 </h1>
                 <p className="mt-4 text-sm sm:text-base text-gray-100/90 max-w-2xl mx-auto">
                   {s.subtitle}

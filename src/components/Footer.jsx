@@ -119,7 +119,7 @@ const Footer = () => {
                   href="tel:+1234567890"
                   className="hover:text-indigo-400 transition"
                 >
-                  +1 (234) 567-890
+                  013********
                 </a>
               </li>
             </ul>
@@ -231,10 +231,6 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-sm text-gray-400">
             &copy; {new Date().getFullYear()} ARTIFY. All rights reserved.
-          </p>
-          <p className="text-xs text-gray-500 mt-2">
-            Designed with <span className="text-red-500">❤️</span> for artists
-            worldwide
           </p>
         </div>
       </div>
