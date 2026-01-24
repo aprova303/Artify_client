@@ -20,7 +20,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center px-4">
       {/* Header with Login/User Menu */}
-      <div className="absolute top-0 right-0 p-4">
+      {<div className="absolute top-0 right-0 p-4">
         {user ? (
           <div className="relative">
             <button
@@ -42,7 +42,7 @@ const NotFound = () => {
             </button>
 
             {/* User Menu */}
-            {showUserMenu && (
+           {/* {showUserMenu && (
               <div className="absolute top-14 right-0 bg-white rounded-lg shadow-lg overflow-hidden z-50 min-w-[150px]">
                 <div className="p-3 border-b border-gray-200">
                   <p className="text-sm font-semibold text-gray-900">
@@ -60,7 +60,7 @@ const NotFound = () => {
                   Logout
                 </button>
               </div>
-            )}
+            )} */}
           </div>
         ) : (
           <div className="flex gap-3">
@@ -78,7 +78,7 @@ const NotFound = () => {
             </button>
           </div>
         )}
-      </div>
+      </div>  }
 
       {/* 404 Content */}
       <div className="text-center max-w-md">

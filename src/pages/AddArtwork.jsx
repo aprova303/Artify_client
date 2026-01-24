@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useAppContext } from "../context/AppContext";
+import { useTheme } from "../context/ThemeContext";
 
 const AddArtwork = () => {
   const { user, axios } = useAppContext();
+  const { isDark } = useTheme();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     image: "",
@@ -72,20 +74,38 @@ const AddArtwork = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+    <div
+      className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}
+    >
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-xl p-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+        <div
+          className={`rounded-lg shadow-xl p-8 transition-colors duration-300 ${
+            isDark ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+          }`}
+        >
+          <h1
+            className={`text-4xl font-bold mb-2 ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}
+          >
             Add Your Artwork
           </h1>
-          <p className="text-gray-600 mb-8">
+          <p className={`mb-8 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
             Share your creative masterpiece with the world
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Image URL */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                className={`block text-sm font-medium mb-2 ${
+                  isDark ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 Image URL *
               </label>
               <input
@@ -94,14 +114,22 @@ const AddArtwork = () => {
                 value={formData.image}
                 onChange={handleChange}
                 placeholder="https://example.com/image.jpg"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                  isDark
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+                }`}
                 required
               />
             </div>
 
             {/* Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                className={`block text-sm font-medium mb-2 ${
+                  isDark ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 Artwork Title *
               </label>
               <input
@@ -110,7 +138,11 @@ const AddArtwork = () => {
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="e.g., Sunset Over Mountains"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                  isDark
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+                }`}
                 required
               />
             </div>
@@ -118,14 +150,22 @@ const AddArtwork = () => {
             {/* Category and Medium */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className={`block text-sm font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
                   Category *
                 </label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                    isDark
+                      ? "bg-gray-700 border-gray-600 text-white"
+                      : "bg-white border-gray-300 text-gray-900"
+                  }`}
                   required
                 >
                   <option value="Painting">Painting</option>
@@ -140,7 +180,11 @@ const AddArtwork = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className={`block text-sm font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
                   Medium/Tools *
                 </label>
                 <input
@@ -149,7 +193,11 @@ const AddArtwork = () => {
                   value={formData.mediumTools}
                   onChange={handleChange}
                   placeholder="e.g., Oil on Canvas"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                    isDark
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+                  }`}
                   required
                 />
               </div>
@@ -157,7 +205,11 @@ const AddArtwork = () => {
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                className={`block text-sm font-medium mb-2 ${
+                  isDark ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 Description *
               </label>
               <textarea
@@ -166,7 +218,11 @@ const AddArtwork = () => {
                 onChange={handleChange}
                 placeholder="Tell us about your artwork..."
                 rows="5"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none ${
+                  isDark
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+                }`}
                 required
               />
             </div>
@@ -174,7 +230,11 @@ const AddArtwork = () => {
             {/* Dimensions and Price */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className={`block text-sm font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
                   Dimensions (Optional)
                 </label>
                 <input
@@ -183,12 +243,20 @@ const AddArtwork = () => {
                   value={formData.dimensions}
                   onChange={handleChange}
                   placeholder="e.g., 50x70 cm"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                    isDark
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+                  }`}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className={`block text-sm font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
                   Price (Optional)
                 </label>
                 <input
@@ -197,7 +265,11 @@ const AddArtwork = () => {
                   value={formData.price}
                   onChange={handleChange}
                   placeholder="e.g., 5000"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                    isDark
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+                  }`}
                   min="0"
                 />
               </div>
@@ -205,14 +277,22 @@ const AddArtwork = () => {
 
             {/* Visibility */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                className={`block text-sm font-medium mb-2 ${
+                  isDark ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 Visibility *
               </label>
               <select
                 name="visibility"
                 value={formData.visibility}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                  isDark
+                    ? "bg-gray-700 border-gray-600 text-white"
+                    : "bg-white border-gray-300 text-gray-900"
+                }`}
                 required
               >
                 <option value="Public">Public (Visible to everyone)</option>
@@ -221,28 +301,50 @@ const AddArtwork = () => {
             </div>
 
             {/* User Info - Read Only */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-4 rounded-lg">
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 gap-6 p-4 rounded-lg transition-colors duration-300 ${
+                isDark
+                  ? "bg-gray-700 text-gray-300"
+                  : "bg-gray-50 text-gray-700"
+              }`}
+            >
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className={`block text-sm font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
                   Your Name
                 </label>
                 <input
                   type="text"
                   value={user?.displayName || "Anonymous"}
                   disabled
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
+                  className={`w-full px-4 py-2 border rounded-lg cursor-not-allowed ${
+                    isDark
+                      ? "bg-gray-600 border-gray-500 text-gray-300"
+                      : "bg-gray-100 border-gray-300 text-gray-700"
+                  }`}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className={`block text-sm font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
                   Your Email
                 </label>
                 <input
                   type="email"
                   value={user?.email || ""}
                   disabled
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
+                  className={`w-full px-4 py-2 border rounded-lg cursor-not-allowed ${
+                    isDark
+                      ? "bg-gray-600 border-gray-500 text-gray-300"
+                      : "bg-gray-100 border-gray-300 text-gray-700"
+                  }`}
                 />
               </div>
             </div>

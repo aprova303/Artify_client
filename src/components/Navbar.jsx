@@ -35,10 +35,16 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100 shadow-sm justify-between">
+    <div
+      className={`navbar transition-colors duration-300 ${isDark ? "bg-gray-900 text-white shadow-lg shadow-gray-900" : "bg-white text-black shadow-md"}`}
+    >
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div
+            tabIndex={0}
+            role="button"
+            className={`btn btn-ghost lg:hidden ${isDark ? "hover:bg-gray-800" : "hover:bg-gray-100"}`}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -57,28 +63,35 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className={`menu menu-sm dropdown-content rounded-box z-1 mt-3 w-52 p-2 shadow ${isDark ? "bg-gray-800 text-white" : "bg-white text-black"}`}
           >
             {links}
           </ul>
         </div>
-        <img src="../assets/icons8-art-48.png" alt="" />
-        {/* <a className="btn btn-ghost text-xl">ARTIFY</a> */}
-        <div className="flex items-center gap-2 mb-4">
+        {/* <img src="../assets/icons8-art-48.png" alt="Artify logo" className="w-8 h-8" /> */}
+        <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold">A</span>
+            <span className="text-white font-bold text-sm">A</span>
           </div>
-          <h3 className="text-xl font-bold text-black">ARTIFY</h3>
+          <h3
+            className={`text-xl font-bold ${isDark ? "text-white" : "text-black"}`}
+          >
+            ARTIFY
+          </h3>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex mr-10">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
+        <ul
+          className={`menu menu-horizontal px-1 ${isDark ? "text-gray-200" : "text-gray-700"}`}
+        >
+          {links}
+        </ul>
       </div>
       <div className="navbar-end gap-3">
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className="btn btn-ghost btn-circle"
+          className={`btn btn-ghost btn-circle transition-colors duration-300 ${isDark ? "bg-gray-800 hover:bg-gray-700 text-yellow-400" : "bg-gray-100 hover:bg-gray-200 text-yellow-500"}`}
           title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
         >
           {isDark ? (
@@ -97,21 +110,29 @@ const Navbar = () => {
         </button>
 
         {user ? (
-          <a onClick={handleSignOut} className="btn">
+          <a
+            onClick={handleSignOut}
+            className={`btn transition-colors duration-300 ${isDark ? "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600" : "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600"}`}
+          >
             Sign Out
           </a>
         ) : (
-          <Link to="/login" className="btn">
-            Login
-          </Link>
+          <>
+            <Link
+              to="/register"
+              className={`btn transition-colors duration-300 ${isDark ? "bg-green-600 hover:bg-green-700 text-white border-green-600" : "bg-green-600 hover:bg-green-700 text-white border-green-600"}`}
+            >
+              Sign Up
+            </Link>
+            <Link
+              to="/login"
+              className={`btn transition-colors duration-300 ${isDark ? "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600" : "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600"}`}
+            >
+              Login
+            </Link>
+          </>
         )}
       </div>
-      {/* <div className="login-btn flex gap-5"> */}
-      {/* <img src={user} alt="" /> */}
-      {/* <button onClick={Login} className="btn btn-primary">
-        Login
-      </button> */}
-      {/* </div> */}
     </div>
   );
 };

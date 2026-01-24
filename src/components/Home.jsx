@@ -3,8 +3,10 @@ import ArtsCard from "../pages/ArtsCard";
 import { useLoaderData, useParams } from "react-router";
 import Banner from "./Banner";
 import { Fade, Zoom, Slide } from "react-awesome-reveal";
+import { useTheme } from "../context/ThemeContext";
 
 const Home = () => {
+  const { isDark } = useTheme();
   const [arts, setArts] = useState([]);
   const [loading, setLoading] = useState(true);
   const data = useLoaderData();
@@ -31,13 +33,23 @@ const Home = () => {
       <Banner />
 
       <Fade>
-        <section className="my-12 py-8 px-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900 rounded-lg border-l-4 border-purple-500">
+        <section
+          className={`my-12 py-8 px-6 rounded-lg border-l-4 border-purple-500 transition-colors duration-300 ${
+            isDark
+              ? "bg-gradient-to-r from-gray-800 to-gray-900 text-white"
+              : "bg-gradient-to-r from-purple-50 to-pink-50 text-gray-900"
+          }`}
+        >
           <Zoom triggerOnce>
             <h2 className="text-3xl font-bold mb-2 text-purple-600 dark:text-purple-400 flex items-center gap-2">
               ⭐ Top Artists of the Week
             </h2>
           </Zoom>
-          <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+          <p
+            className={`mb-4 leading-relaxed ${
+              isDark ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
             Discover the most talented artists featured this week. Explore their
             unique styles and inspiring creations.
           </p>
@@ -47,13 +59,23 @@ const Home = () => {
       </Fade>
 
       <Fade delay={200}>
-        <section className="my-12 py-8 px-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900 rounded-lg border-l-4 border-blue-500">
+        <section
+          className={`my-12 py-8 px-6 rounded-lg border-l-4 border-blue-500 transition-colors duration-300 ${
+            isDark
+              ? "bg-gradient-to-r from-gray-800 to-gray-900 text-white"
+              : "bg-gradient-to-r from-blue-50 to-cyan-50 text-gray-900"
+          }`}
+        >
           <Zoom triggerOnce>
             <h2 className="text-3xl font-bold mb-2 text-blue-600 dark:text-blue-400 flex items-center gap-2">
               🎨 Community Highlights
             </h2>
           </Zoom>
-          <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+          <p
+            className={`mb-4 leading-relaxed ${
+              isDark ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
             Check out the latest buzz from our art community. From trending
             artworks to user spotlights and discussions.
           </p>
