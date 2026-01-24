@@ -11,6 +11,7 @@ import MyGallery from "../pages/MyGallery";
 import MyFavorites from "../pages/MyFavorites";
 import ExploreArtworks from "../pages/ExploreArtworks";
 import ArtworkDetails from "../pages/ArtworkDetails";
+import NotFound from "../pages/NotFound";
 import PrivateRoute from "../components/PrivateRoute";
 
 const router = createBrowserRouter([
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
         Component: ExploreArtworks,
       },
       {
-        path: "/artwork/:id",
+        path: "/artwork-details/:id",
         Component: ArtworkDetails,
       },
       {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    Component: NotFound,
   },
 ]);
 
