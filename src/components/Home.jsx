@@ -42,7 +42,7 @@ const Home = () => {
         >
           <Zoom triggerOnce>
             <h2 className="text-3xl font-bold mb-2 text-purple-600 dark:text-purple-400 flex items-center gap-2">
-              ⭐ Top Artists of the Week
+               Top Artists of the Week
             </h2>
           </Zoom>
           <p
@@ -68,7 +68,7 @@ const Home = () => {
         >
           <Zoom triggerOnce>
             <h2 className="text-3xl font-bold mb-2 text-blue-600 dark:text-blue-400 flex items-center gap-2">
-              🎨 Community Highlights
+               Community Highlights
             </h2>
           </Zoom>
           <p

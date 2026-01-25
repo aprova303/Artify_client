@@ -148,7 +148,7 @@ const ExploreArtworks = () => {
                 {/* Image */}
                 <div className="relative overflow-hidden h-64 bg-gray-200">
                   <img
-                    src={art.imageUrl || "https://via.placeholder.com/400x300"}
+                    src={art.image || "https://via.placeholder.com/400x300"}
                     alt={art.title}
                     className="w-full h-full object-cover hover:scale-110 transition duration-300"
                   />
@@ -163,7 +163,7 @@ const ExploreArtworks = () => {
                     {art.title}
                   </h3>
                   <p className="text-sm text-gray-600 mb-3">
-                    by {art.artistName}
+                    by {art.userName}
                   </p>
                   <p className="text-gray-700 text-sm mb-4 line-clamp-2">
                     {art.description}
@@ -174,11 +174,11 @@ const ExploreArtworks = () => {
                     <div className="flex items-center gap-2">
                       <span className="text-red-500">❤️</span>
                       <span className="text-sm font-semibold text-gray-700">
-                        {art.likes || 0}
+                        {art.likesCount || 0}
                       </span>
                     </div>
                     <Link
-                      to={`/artwork/${art._id}`}
+                      to={`/artwork-details/${art._id}`}
                       className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-lg transition"
                     >
                       View Details

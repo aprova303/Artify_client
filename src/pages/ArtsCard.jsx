@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // import { FaStar } from "react-icons/fa";
 // import { Link, useLoaderData } from "react-router";
 
@@ -32,7 +33,12 @@ const ArtsCard = ({ art }) => {
             <div className="text-lg font-bold text-primary">
               ${art?.price || "N/A"}
             </div>
-            <button className="btn btn-sm btn-primary">View Details</button>
+            <Link
+              to={`/artwork-details/${art._id}`}
+              className="btn btn-sm btn-primary"
+            >
+              View Details
+            </Link>
           </div>
         </div>
       </div>

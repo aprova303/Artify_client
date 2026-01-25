@@ -9,21 +9,69 @@ const MyFavorites = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchFavorites();
+    if (user?.uid) {
+      fetchFavorites();
+    } else {
+      setLoading(false);
+    }
   }, [user]);
 
   const fetchFavorites = async () => {
     setLoading(true);
     try {
+      console.log("Fetching favorites for user:", user?.uid);
       const { data } = await axios.get(`/api/favorites/user/${user?.uid}`);
+      console.log("Favorites API Response:", data);
+
       if (data.success) {
-        setFavorites(data.data || []);
+        const favoritesData = data.data || [];
+        console.log("Favorites Data:", favoritesData);
+
+        if (favoritesData.length === 0) {
+          console.log("No favorites found");
+          setFavorites([]);
+        } else {
+          // Check if we need to fetch full artwork details
+          if (!favoritesData[0].title) {
+            // Only IDs or minimal data were returned, fetch full artwork details
+            console.log("Fetching full artwork details...");
+            const fullArtworks = await Promise.all(
+              favoritesData.map((fav) => {
+                const artworkId = fav.artworkId || fav.artwork?._id || fav._id;
+                console.log("Fetching artwork with ID:", artworkId);
+                return axios
+                  .get(`/api/artworks/${artworkId}`)
+                  .then((res) => {
+                    console.log("Fetched artwork:", res.data);
+                    return res.data.data || res.data;
+                  })
+                  .catch((err) => {
+                    console.error(
+                      "Error fetching artwork details:",
+                      artworkId,
+                      err,
+                    );
+                    return null;
+                  });
+              }),
+            );
+            const validArtworks = fullArtworks.filter((art) => art !== null);
+            console.log("Valid Artworks:", validArtworks);
+            setFavorites(validArtworks);
+          } else {
+            // Full artwork data was already returned
+            console.log("Full artwork data already returned");
+            setFavorites(favoritesData);
+          }
+        }
       } else {
-        toast.error("Failed to load favorites");
+        console.error("API Error:", data.error || "Unknown error");
+        toast.error(data.error || "Failed to load favorites");
+        setFavorites([]);
       }
     } catch (error) {
       console.error("Error fetching favorites:", error);
-      toast.error("Failed to load favorites");
+      toast.error(error.response?.data?.error || "Failed to load favorites");
       setFavorites([]);
     } finally {
       setLoading(false);
@@ -132,7 +180,6 @@ const MyFavorites = () => {
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">⭐</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
               No favorites yet
             </h3>
