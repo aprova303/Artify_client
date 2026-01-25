@@ -8,14 +8,16 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Typewriter } from "react-simple-typewriter";
 import { useTheme } from "../context/ThemeContext";
-
+import b1 from "../assets/banner.jpeg";
+import b2 from "../assets/banner2.jpeg";
+import b3 from "../assets/banner3.jpeg";
 const slides = [
   {
     id: 1,
     title: "Discover Stunning Artworks",
     subtitle:
       "Explore a world of creativity — from digital illustrations to traditional paintings. Every piece tells a story.",
-    image: "https://i.ibb.co/jHcNns6/art-gallery-exhibit-modern-paintings.jpg",
+    image: b1,
     alt: "Art gallery with modern paintings on wall",
   },
   {
@@ -23,8 +25,7 @@ const slides = [
     title: "Connect with Creative Minds",
     subtitle:
       "Join a vibrant community of artists and art lovers. Share feedback, collaborate on projects, and grow together.",
-    image:
-      "https://i.ibb.co/nbXtVWr/artists-collaboration-studio-creative-work.jpg",
+    image: b2,
     alt: "Group of artists collaborating in a studio",
   },
   {
@@ -32,7 +33,7 @@ const slides = [
     title: "Curate Your Personal Gallery",
     subtitle:
       "Save the artworks that inspire you. Build your own virtual gallery and express your unique artistic taste.",
-    image: "https://i.ibb.co/ZJQ0c7M/abstract-art-colorful-wall-display.jpg",
+    image: b3,
     alt: "Colorful abstract paintings displayed in an art space",
   },
 ];

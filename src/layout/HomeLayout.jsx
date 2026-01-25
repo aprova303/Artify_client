@@ -5,12 +5,14 @@ import Footer from "../components/Footer";
 import Banner from "../components/Banner";
 import { AppContextProvider } from "../context/AppContext";
 import { useTheme } from "../context/ThemeContext";
+import { Toaster } from "react-hot-toast";
 
 const HomeLayout = () => {
   const { isDark } = useTheme();
 
   return (
     <AppContextProvider>
+      <Toaster position="top-right" />
       <div className={isDark ? "dark" : ""}>
         <div
           className={`${isDark ? "bg-gray-950 text-white" : "bg-white text-black"} min-h-screen transition-colors duration-300`}

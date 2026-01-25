@@ -110,23 +110,55 @@ const Navbar = () => {
         </button>
 
         {user ? (
-          <a
-            onClick={handleSignOut}
-            className={`btn transition-colors duration-300 ${isDark ? "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600" : "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600"}`}
-          >
-            Sign Out
-          </a>
+          <div className="dropdown dropdown-end">
+            <button
+              tabIndex={0}
+              className="btn btn-ghost btn-circle avatar overflow-hidden hover:ring-2 hover:ring-indigo-500 transition-all"
+              title="Click to see options"
+            >
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
+                <img
+                  src={user.photoURL || "https://via.placeholder.com/40"}
+                  alt={user.displayName || "User Avatar"}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.src = "https://via.placeholder.com/40";
+                  }}
+                />
+              </div>
+            </button>
+            <ul
+              tabIndex={0}
+              className={`dropdown-content z-[1] menu p-3 shadow rounded-box w-56 gap-2 ${isDark ? "bg-gray-800 text-white border border-gray-700" : "bg-white text-black border border-gray-200"}`}
+            >
+              <li className="menu-title mb-2">
+                <span
+                  className={`text-sm font-semibold ${isDark ? "text-gray-300" : "text-gray-600"}`}
+                >
+                  {user.displayName || user.email || "User"}
+                </span>
+              </li>
+              <li>
+                <button
+                  onClick={handleSignOut}
+                  className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
         ) : (
           <>
             <Link
               to="/register"
-              className={`btn transition-colors duration-300 ${isDark ? "bg-green-600 hover:bg-green-700 text-white border-green-600" : "bg-green-600 hover:bg-green-700 text-white border-green-600"}`}
+              className={`btn btn-sm transition-colors duration-300 ${isDark ? "bg-green-600 hover:bg-green-700 text-white border-green-600" : "bg-green-600 hover:bg-green-700 text-white border-green-600"}`}
             >
               Sign Up
             </Link>
             <Link
               to="/login"
-              className={`btn transition-colors duration-300 ${isDark ? "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600" : "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600"}`}
+              className={`btn btn-sm transition-colors duration-300 ${isDark ? "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600" : "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600"}`}
             >
               Login
             </Link>

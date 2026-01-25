@@ -100,20 +100,22 @@ const MyFavorites = () => {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-          <p className="mt-4 text-gray-600">Loading your favorites...</p>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">
+            Loading your favorites...
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+    <div className="min-h-screen bg-white dark:bg-gray-900 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             My Favorites
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
             Your collection of favorite artworks
           </p>
         </div>
@@ -123,29 +125,29 @@ const MyFavorites = () => {
             {favorites.map((artwork) => (
               <div
                 key={artwork._id}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1"
               >
                 {/* Image */}
-                <div className="relative overflow-hidden h-64 bg-gray-200">
+                <div className="relative overflow-hidden h-64 bg-gray-200 dark:bg-gray-700">
                   <img
                     src={artwork.image || "https://via.placeholder.com/400x300"}
                     alt={artwork.title}
                     className="w-full h-full object-cover hover:scale-110 transition duration-300"
                   />
-                  <div className="absolute top-3 right-3 bg-white rounded-full px-3 py-1 text-xs font-semibold text-indigo-600">
+                  <div className="absolute top-3 right-3 bg-white dark:bg-gray-800 rounded-full px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
                     {artwork.category}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-4">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 truncate">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 truncate">
                     {artwork.title}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-3">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                     by {artwork.userName}
                   </p>
-                  <p className="text-gray-700 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                     {artwork.description}
                   </p>
 
@@ -180,10 +182,10 @@ const MyFavorites = () => {
           </div>
         ) : (
           <div className="text-center py-16">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               No favorites yet
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
               Start by favoriting your favorite artworks
             </p>
             <Link
