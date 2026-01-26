@@ -1,16 +1,32 @@
-# React + Vite
+# Artify - Your Personal Art Gallery Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **Artify**, a modern and intuitive platform designed for art enthusiasts and creators to discover, showcase, and manage their favorite artworks in one unified space.
 
-Currently, two official plugins are available:
+## Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Explore Artworks**: Browse through a curated collection of beautiful artworks from talented artists around the world
+- **Create Your Gallery**: Add and manage your own artwork collection with detailed descriptions, images, and pricing information
+- **Favorites Management**: Save your favorite artworks to a personalized favorites list for quick access and inspiration
+- **User Authentication**: Secure login and registration system to protect your personal gallery and preferences
+- **Responsive Design**: Seamlessly experience Artify across all devices - desktop, tablet, and mobile with a beautiful UI powered by Tailwind CSS
+- **Dark/Light Theme**: Toggle between dark and light themes to suit your viewing preference and reduce eye strain
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend**: React with Vite for fast development
+- **Styling**: Tailwind CSS for modern, responsive design
+- **Authentication**: Firebase Authentication
+- **State Management**: React Context API
+- **Build Tool**: Vite for optimized production builds
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Project Structure
+
+src/
+├── components/      # Reusable UI components
+├── pages/          # Page components
+├── context/        # Global state management
+├── firebase/       # Firebase configuration
+├── router/         # Route definitions
+└── assets/         # Images and static files
