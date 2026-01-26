@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useTheme } from "../context/ThemeContext";
 
 const MyFavorites = () => {
   const { user, axios } = useAppContext();
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {isDark} = useTheme();
 
   useEffect(() => {
     if (user?.uid) {
@@ -97,7 +99,11 @@ const MyFavorites = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}>
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-400">
@@ -109,13 +115,19 @@ const MyFavorites = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 py-12 px-4">
+    <div className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}>
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1  className={`text-4xl font-bold mb-2 ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
             My Favorites
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 text-lg">
+          <p className={`text-gray-600 ${isDark ? "text-gray-400" : "text-gray-600"} text-lg`}>
             Your collection of favorite artworks
           </p>
         </div>
@@ -173,7 +185,7 @@ const MyFavorites = () => {
                       onClick={() => handleRemoveFromFavorites(artwork._id)}
                       className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg transition font-semibold"
                     >
-                      ❌ Remove
+                       Remove
                     </button>
                   </div>
                 </div>
@@ -182,10 +194,10 @@ const MyFavorites = () => {
           </div>
         ) : (
           <div className="text-center py-16">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className={`text-2xl font-bold text-gray-900 ${isDark ? "text-white" : "text-gray-900"} mb-2`}>
               No favorites yet
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className={`text-gray-600 ${isDark ? "text-gray-400" : "text-gray-600"} mb-6`}>
               Start by favoriting your favorite artworks
             </p>
             <Link

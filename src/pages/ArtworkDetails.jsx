@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { useTheme } from "../context/ThemeContext";
 
 const ArtworkDetails = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const ArtworkDetails = () => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [likeLoading, setLikeLoading] = useState(false);
   const [totalArtworks, setTotalArtworks] = useState(0);
-
+ const {isDark} = useTheme();
   useEffect(() => {
     fetchArtworkDetails();
   }, [id]);
@@ -140,7 +141,11 @@ const ArtworkDetails = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}>
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-400">
@@ -153,7 +158,11 @@ const ArtworkDetails = () => {
 
   if (!artwork) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}>
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             Artwork not found
@@ -170,7 +179,11 @@ const ArtworkDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 py-12 px-4">
+    <div className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}>
       <div className="max-w-5xl mx-auto">
         {/* Back Button */}
         <button
@@ -180,7 +193,7 @@ const ArtworkDetails = () => {
           ← Back to Explore
         </button>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+        <div className={` ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-xl overflow-hidden`}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
             {/* Image Section */}
             <div>
@@ -196,7 +209,7 @@ const ArtworkDetails = () => {
               {/* Title and Category */}
               <div className="mb-6">
                 <div className="flex items-start justify-between mb-2">
-                  <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                  <h1 className={`text-4xl font-bold text-gray-900 ${isDark ? "text-white" : "text-black"}`}>
                     {artwork.title}
                   </h1>
                   <span className="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 px-4 py-1 rounded-full text-sm font-semibold">
@@ -207,10 +220,10 @@ const ArtworkDetails = () => {
 
               {/* Artist Info */}
               <div className="border-b dark:border-gray-700 pb-6 mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className={`text-lg font-semibold text-gray-900 ${isDark ? "text-white" : "text-black"} mb-2`}>
                   Artist
                 </h3>
-                <p className="text-gray-700 dark:text-gray-300 text-lg font-medium mb-1">
+                <p className={`text-gray-700 ${isDark ? "text-gray-300" : "text-black"} text-lg font-medium mb-1`}>
                   {artwork.userName}
                 </p>
                 <p className="text-gray-500 dark:text-gray-400 text-sm">
@@ -221,29 +234,29 @@ const ArtworkDetails = () => {
               {/* Artwork Details */}
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  <p className={`text-gray-600 ${isDark ? "text-gray-400" : "text-gray-600"} text-sm`}>
                     Medium
                   </p>
-                  <p className="text-gray-900 dark:text-white font-semibold">
+                  <p className={`text-gray-900 ${isDark ? "text-white" : "text-black"} font-semibold`}>
                     {artwork.mediumTools}
                   </p>
                 </div>
                 {artwork.dimensions && (
                   <div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    <p className={`text-gray-600 ${isDark ? "text-gray-400" : "text-gray-600"} text-sm`}>
                       Dimensions
                     </p>
-                    <p className="text-gray-900 dark:text-white font-semibold">
+                    <p className={`text-gray-900 ${isDark ? "text-white" : "text-black"} font-semibold`}>
                       {artwork.dimensions}
                     </p>
                   </div>
                 )}
                 {artwork.price && (
                   <div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    <p className={`text-gray-600 ${isDark ? "text-gray-400" : "text-gray-600"} text-sm`}>
                       Price
                     </p>
-                    <p className="text-gray-900 dark:text-white font-semibold">
+                    <p className={`text-gray-900 ${isDark ? "text-white" : "text-black"} font-semibold`}>
                       ${artwork.price}
                     </p>
                   </div>
@@ -252,10 +265,10 @@ const ArtworkDetails = () => {
 
               {/* Description */}
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className={`text-lg font-semibold text-gray-900 ${isDark ? "text-white" : "text-black"} mb-2`}>
                   Description
                 </h3>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className={`text-gray-700 ${isDark ? "text-white" : "text-black"} leading-relaxed`}>
                   {artwork.description}
                 </p>
               </div>

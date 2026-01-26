@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useTheme } from "../context/ThemeContext";
 
 const ExploreArtworks = () => {
   const { axios } = useAppContext();
@@ -10,7 +11,7 @@ const ExploreArtworks = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-
+  const {isDark} = useTheme();
   useEffect(() => {
     fetchArtworks();
   }, []);
@@ -79,7 +80,14 @@ const ExploreArtworks = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div 
+      // className="flex items-center justify-center min-h-screen"
+        className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}
+      >
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-400">
@@ -91,20 +99,32 @@ const ExploreArtworks = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 py-12 px-4">
+    <div 
+    // className="min-h-screen bg-white dark:bg-gray-900 py-12 px-4"
+     className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1
+          //  className="text-4xl font-bold text-gray-900 dark:text-white mb-4"
+           className={`text-4xl font-bold mb-2 ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}
+           >
             Explore Artworks
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 text-lg">
+          <p  className={`mb-8 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
             Discover amazing artworks from talented artists
           </p>
         </div>
 
         {/* Search Bar */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+        <div className={` ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-lg p-6 mb-8`}>
           <div className="mb-6">
             <input
               type="text"

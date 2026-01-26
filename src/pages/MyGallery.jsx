@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { useTheme } from "../context/ThemeContext";
 
 const MyGallery = () => {
   const { user, axios } = useAppContext();
@@ -8,6 +9,7 @@ const MyGallery = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingArtwork, setEditingArtwork] = useState(null);
+  const {isDark} = useTheme();
   const [formData, setFormData] = useState({
     image: "",
     title: "",
@@ -124,7 +126,14 @@ const MyGallery = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div 
+      // className="flex items-center justify-center min-h-screen"
+       className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}
+      >
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-400">
@@ -136,13 +145,22 @@ const MyGallery = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 py-12 px-4">
+    <div 
+    // className="min-h-screen bg-white dark:bg-gray-900 py-12 px-4"
+     className={`min-h-screen py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className={`text-4xl font-bold mb-2 ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
             My Gallery
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 text-lg">
+          <p className={`mb-8 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
             Manage your artworks
           </p>
         </div>
@@ -189,13 +207,13 @@ const MyGallery = () => {
                       onClick={() => handleEdit(artwork)}
                       className="flex-1 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition text-sm"
                     >
-                      ✏️ Update
+                       Update
                     </button>
                     <button
                       onClick={() => handleDelete(artwork._id)}
                       className="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition text-sm"
                     >
-                      🗑️ Delete
+                       Delete
                     </button>
                   </div>
                 </div>
@@ -204,11 +222,11 @@ const MyGallery = () => {
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">🎨</div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            {/* <div className="text-6xl mb-4"></div> */}
+            <h3 className={`font-bold text-2xl mb-8 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
               No artworks yet
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className={`mb-8 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
               Start by adding your first artwork to your gallery
             </p>
             <a
