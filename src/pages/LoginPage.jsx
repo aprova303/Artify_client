@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ const LoginPage = () => {
   const { signInUser, signInWithGoogle } = useAppContext();
   const navigate = useNavigate();
   const location = useLocation();
-
+  const {isDark} = useTheme(); 
   const from = location.state?.from?.pathname || "/";
 
   const handleEmailLogin = async (e) => {
@@ -58,14 +59,21 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+    <div
+    //  className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8"
+    className={`min-h-screen flex items-center justify-center py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}
+     >
       <div className="w-full max-w-md">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
+        <div className={` ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-xl p-8`}>
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h2 className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
               Welcome Back
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
+            <p className={`text-gray-600 ${isDark ? "text-gray-300" : ""} mt-2`}>
               Sign in to your account
             </p>
           </div>
@@ -73,7 +81,7 @@ const LoginPage = () => {
           <form onSubmit={handleEmailLogin} className="space-y-6">
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-2`}>
                 Email Address
               </label>
               <input
@@ -88,7 +96,7 @@ const LoginPage = () => {
 
             {/* Password Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-2`}>
                 Password
               </label>
               <input

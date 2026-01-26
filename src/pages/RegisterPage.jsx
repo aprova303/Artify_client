@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -11,7 +12,7 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-
+  const {isDark} = useTheme();
   const { createUser, signInWithGoogle } = useAppContext();
   const navigate = useNavigate();
 
@@ -116,14 +117,21 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+    <div 
+    // className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8"
+     className={`min-h-screen flex items-center justify-center py-12 px-4 transition-colors duration-300 ${
+        isDark
+          ? "bg-gradient-to-br from-gray-950 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+      }`}
+    >
       <div className="w-full max-w-md">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
+        <div className={` ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-xl p-8`}>
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h2 className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
               Create Account
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
+            <p className={`text-gray-600 ${isDark ? "text-gray-300" : ""} mt-2`}>
               Join us and start sharing your art
             </p>
           </div>
@@ -131,7 +139,7 @@ const RegisterPage = () => {
           <form onSubmit={handleEmailRegister} className="space-y-4">
             {/* Name Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-2`}>
                 Full Name
               </label>
               <input
@@ -146,7 +154,7 @@ const RegisterPage = () => {
 
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-2`}>
                 Email Address
               </label>
               <input
@@ -161,7 +169,7 @@ const RegisterPage = () => {
 
             {/* Photo URL Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-2`}>
                 Profile Photo URL
               </label>
               <input
@@ -176,7 +184,7 @@ const RegisterPage = () => {
 
             {/* Password Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-2`}>
                 Password
               </label>
               <input
@@ -201,7 +209,7 @@ const RegisterPage = () => {
 
             {/* Confirm Password Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-2`}>
                 Confirm Password
               </label>
               <input
