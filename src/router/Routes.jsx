@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: "/arts/:id",
         Component: ArtsCard,
-        loader: () => fetch("http://localhost:3000/arts"),
+        loader: () => fetch("https://artify-project.vercel.app/arts"),
       },
       {
         path: "/login",

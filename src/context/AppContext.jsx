@@ -12,10 +12,14 @@ import { auth } from "../firebase/firebase.init";
 
 const AppContext = createContext();
 
+// API base URL - use environment variable or production URL
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "https://artify-project.vercel.app";
+
 // Simple axios-like helper for making requests
 const apiClient = {
   post: async (url, data) => {
-    const response = await fetch(`http://localhost:3000${url}`, {
+    const response = await fetch(`${API_BASE_URL}${url}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -25,7 +29,7 @@ const apiClient = {
     };
   },
   get: async (url) => {
-    const response = await fetch(`http://localhost:3000${url}`);
+    const response = await fetch(`${API_BASE_URL}${url}`);
     return {
       data: await response.json(),
     };
