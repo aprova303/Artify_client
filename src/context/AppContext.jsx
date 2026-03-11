@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -64,6 +65,10 @@ export const AppContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const updateUser=(updatedData)=>{
+    return updateProfile(auth.currentUser , updatedData)
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -87,6 +92,7 @@ export const AppContextProvider = ({ children }) => {
     navigate,
     createUser,
     loading,
+    updateUser
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

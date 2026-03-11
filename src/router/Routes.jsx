@@ -3,7 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import HomeLayout from "../layout/HomeLayout";
 import Home from "../components/Home";
 import ArtsCard from "../pages/ArtsCard";
-import Register from "../components/Register";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import AddArtwork from "../pages/AddArtwork";

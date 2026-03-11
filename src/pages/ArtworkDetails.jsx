@@ -188,7 +188,7 @@ const ArtworkDetails = () => {
         {/* Back Button */}
         <button
           onClick={() => navigate("/explore")}
-          className="mb-6 px-4 py-2 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-white rounded-lg transition shadow"
+          className={`mb-6 px-4 py-2 ${isDark ? "bg-gray-800 hover:bg-gray-700" : "bg-white hover:bg-gray-100"} font-semibold rounded-lg transition shadow`}
         >
           ← Back to Explore
         </button>
@@ -212,7 +212,7 @@ const ArtworkDetails = () => {
                   <h1 className={`text-4xl font-bold text-gray-900 ${isDark ? "text-white" : "text-black"}`}>
                     {artwork.title}
                   </h1>
-                  <span className="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 px-4 py-1 rounded-full text-sm font-semibold">
+                  <span className={` ${isDark ? "bg-indigo-900 text-indigo-300" : "bg-indigo-200 text-indigo-700"}  px-4 py-1 rounded-full text-sm font-semibold`}>
                     {artwork.category}
                   </span>
                 </div>
@@ -316,23 +316,23 @@ const ArtworkDetails = () => {
           </div>
 
           {/* Artist Section */}
-          <div className="border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className={`border-t border-gray-700 ${isDark ? "bg-gray-800" : "bg-gray-50"} p-8`}>
+            <h2 className={`text-2xl font-bold  ${isDark ? "text-white" : "text-gray-900"} mb-6`}>
               About the Artist
             </h2>
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <div className={` ${isDark ? "bg-gray-700" : "bg-gray-100"} p-6 rounded-lg shadow`}>
+              <h3 className={`text-xl font-semibold  ${isDark ? "text-white" : "text-gray-900"} mb-2`}>
                 {artwork.userName}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
+              <p className={` ${isDark ? "text-gray-300" : "text-gray-600"} mb-4`}>
                 Email: {artwork.userEmail}
               </p>
-              <div className="text-gray-700 dark:text-gray-300">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+              <div className={` ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                <p className={`text-sm  ${isDark ? "text-gray-400" : "text-gray-600"}`}>
                   Total Artworks:{" "}
                   <span className="font-semibold">{totalArtworks}</span>
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                <p className={`text-sm  ${isDark ? "text-gray-400" : "text-gray-600"}`} mt-2>
                   Joined:{" "}
                   <span className="font-semibold">
                     {new Date(artwork.createdAt).toLocaleDateString()}

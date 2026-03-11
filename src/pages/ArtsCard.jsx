@@ -1,12 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 // import { FaStar } from "react-icons/fa";
 // import { Link, useLoaderData } from "react-router";
 
 const ArtsCard = ({ art }) => {
+
+    const { isDark, toggleTheme } = useTheme();
   return (
     <div>
-      <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow">
+      <div
+      //  className={`card  bg-base-100 shadow-lg hover:shadow-xl transition-shadow ${isDark ? 'dark' : ''}`}
+      className={` ${isDark ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1`}
+       >
         <figure>
           <img
             src={

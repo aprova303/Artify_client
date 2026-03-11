@@ -3,6 +3,7 @@ import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
+import { updateProfile } from "firebase/auth";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -13,7 +14,7 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const {isDark} = useTheme();
-  const { createUser, signInWithGoogle } = useAppContext();
+  const { createUser, signInWithGoogle, updateUser,setUser } = useAppContext();
   const navigate = useNavigate();
 
   // Password validation function
@@ -72,8 +73,7 @@ const RegisterPage = () => {
       const result = await createUser(email, password);
 
       if (result.user) {
-        // Here you can also save additional user info (name, photoURL) to your database
-        // For now, we'll just show success
+        const user = result.user;
         toast.success("Account created successfully!");
         setName("");
         setEmail("");
@@ -81,6 +81,15 @@ const RegisterPage = () => {
         setPassword("");
         setConfirmPassword("");
         navigate("/", { replace: true });
+        updateUser({
+           displayName: name,
+        photoURL: photoURL,
+        }).then(()=>{
+          setUser({...user, displayName: name, photoURL: photoURL})
+        }).catch(error=>{
+          console.error("Error updating user profile:", error);
+          setUser(user)
+        })
       }
     } catch (error) {
       let errorMessage = "Failed to create account";
@@ -147,7 +156,7 @@ const RegisterPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+                className={`w-full px-4 py-2 border ${isDark ?'border-gray-300 border-gray-600 bg-gray-700 dark:text-white' : 'bg-white text-gray-900'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition`}
                 required
               />
             </div>
@@ -162,7 +171,7 @@ const RegisterPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+              className={`w-full px-4 py-2 border ${isDark ?'border-gray-300 border-gray-600 bg-gray-700 dark:text-white' : 'bg-white text-gray-900'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition`}
                 required
               />
             </div>
@@ -177,7 +186,7 @@ const RegisterPage = () => {
                 value={photoURL}
                 onChange={(e) => setPhotoURL(e.target.value)}
                 placeholder="https://example.com/photo.jpg"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+                 className={`w-full px-4 py-2 border ${isDark ?'border-gray-300 border-gray-600 bg-gray-700 dark:text-white' : 'bg-white text-gray-900'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition`}
                 required
               />
             </div>
@@ -192,7 +201,7 @@ const RegisterPage = () => {
                 value={password}
                 onChange={handlePasswordChange}
                 placeholder="••••••••"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:border-transparent outline-none transition dark:bg-gray-700 dark:text-white ${
+                className={`w-full px-4 py-2 border ${isDark ?'border-gray-300 border-gray-600 bg-gray-700 dark:text-white' : 'bg-white text-gray-900'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition ${
                   passwordError
                     ? "border-red-500 focus:ring-red-500"
                     : "border-gray-300 dark:border-gray-600 focus:ring-purple-500"
@@ -217,7 +226,7 @@ const RegisterPage = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:border-transparent outline-none transition dark:bg-gray-700 dark:text-white ${
+                className={`w-full px-4 py-2 border ${isDark ?'border-gray-300 border-gray-600 bg-gray-700 dark:text-white' : 'bg-white text-gray-900'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition ${
                   confirmPassword && password !== confirmPassword
                     ? "border-red-500 focus:ring-red-500"
                     : "border-gray-300 dark:border-gray-600 focus:ring-purple-500"
@@ -244,10 +253,10 @@ const RegisterPage = () => {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+              {/* <div className="w-full border-t border-gray-300 dark:border-gray-600"></div> */}
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+              <span className={`px-2${isDark ? 'bg-gray-800  text-gray-400' : 'bg-white text-gray-500'}`}>
                 Or sign up with
               </span>
             </div>
@@ -258,7 +267,7 @@ const RegisterPage = () => {
             type="button"
             onClick={handleGoogleSignUp}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:bg-gray-100 dark:disabled:bg-gray-600 text-gray-700 dark:text-white font-semibold py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-600 transition duration-200"
+            className={`w-full flex items-center justify-center gap-2 ${isDark ? ' bg-gray-700 hover:bg-gray-50 hover:bg-gray-600  text-gray-700 text-white' : 'bg-white text-gray-900'} font-semibold py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-600 transition duration-200`}
           >
             <svg
               aria-label="Google logo"
@@ -292,7 +301,7 @@ const RegisterPage = () => {
 
           {/* Sign In Link */}
           <div className="mt-6 text-center">
-            <p className="text-gray-600 dark:text-gray-300">
+          <p className={` ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
               Already have an account?{" "}
               <Link
                 to="/login"

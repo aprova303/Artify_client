@@ -1,7 +1,10 @@
 import React from "react";
 import { useAppContext } from "../context/AppContext";
+import { useTheme } from "../context/ThemeContext";
 
 const Register = () => {
+const { isDark, toggleTheme } = useTheme();
+
 
     const {signInWithGoogle} = useAppContext();
     const handleGoogleSignIn = ()=>{

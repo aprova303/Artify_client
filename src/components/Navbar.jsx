@@ -14,21 +14,66 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? `${isDark ? "bg-indigo-600 text-white" : "bg-indigo-100 text-indigo-600"} font-semibold rounded-lg`
+              : `${isDark ? "text-gray-200 hover:bg-gray-800" : "text-gray-700 hover:bg-gray-100"}`
+          }
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/explore">Explore Artworks</NavLink>
+        <NavLink
+          to="/explore"
+          className={({ isActive }) =>
+            isActive
+              ? `${isDark ? "bg-indigo-600 text-white" : "bg-indigo-100 text-indigo-600"} font-semibold rounded-lg`
+              : `${isDark ? "text-gray-200 hover:bg-gray-800" : "text-gray-700 hover:bg-gray-100"}`
+          }
+        >
+          Explore Artworks
+        </NavLink>
       </li>
       {user && (
         <>
           <li>
-            <NavLink to="/addArtwork">Add Artwork</NavLink>
+            <NavLink
+              to="/addArtwork"
+              className={({ isActive }) =>
+                isActive
+                  ? `${isDark ? "bg-indigo-600 text-white" : "bg-indigo-100 text-indigo-600"} font-semibold rounded-lg`
+                  : `${isDark ? "text-gray-200 hover:bg-gray-800" : "text-gray-700 hover:bg-gray-100"}`
+              }
+            >
+              Add Artwork
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/myGallery">My Gallery</NavLink>
+            <NavLink
+              to="/myGallery"
+              className={({ isActive }) =>
+                isActive
+                  ? `${isDark ? "bg-indigo-600 text-white" : "bg-indigo-100 text-indigo-600"} font-semibold rounded-lg`
+                  : `${isDark ? "text-gray-200 hover:bg-gray-800" : "text-gray-700 hover:bg-gray-100"}`
+              }
+            >
+              My Gallery
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/myFavorites">My Favorites</NavLink>
+            <NavLink
+              to="/myFavorites"
+              className={({ isActive }) =>
+                isActive
+                  ? `${isDark ? "bg-indigo-600 text-white" : "bg-indigo-100 text-indigo-600"} font-semibold rounded-lg`
+                  : `${isDark ? "text-gray-200 hover:bg-gray-800" : "text-gray-700 hover:bg-gray-100"}`
+              }
+            >
+              My Favorites
+            </NavLink>
           </li>
         </>
       )}
@@ -69,7 +114,10 @@ const Navbar = () => {
           </ul>
         </div>
         {/* <img src="../assets/icons8-art-48.png" alt="Artify logo" className="w-8 h-8" /> */}
-        <div className="flex items-center gap-2">
+        <Link
+          to="/"
+          className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
+        >
           <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-sm">A</span>
           </div>
@@ -78,7 +126,7 @@ const Navbar = () => {
           >
             ARTIFY
           </h3>
-        </div>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex mr-10">
         <ul
@@ -91,7 +139,7 @@ const Navbar = () => {
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className={`btn btn-ghost btn-circle transition-colors duration-300 ${isDark ? "bg-gray-800 hover:bg-gray-700 text-yellow-400" : "bg-gray-100 hover:bg-gray-200 text-yellow-500"}`}
+          className={`btn btn-ghost btn-circle btn-sm sm:btn-md transition-colors duration-300 ${isDark ? "bg-gray-800 hover:bg-gray-700 text-yellow-400" : "bg-gray-100 hover:bg-gray-200 text-yellow-500"}`}
           title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
         >
           {isDark ? (
@@ -114,7 +162,7 @@ const Navbar = () => {
             <button
               tabIndex={0}
               className="btn btn-ghost btn-circle avatar overflow-hidden hover:ring-2 hover:ring-indigo-500 transition-all"
-              title="Click to see options"
+              title={user.displayName || "User"}
             >
               <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
                 <img
@@ -129,13 +177,13 @@ const Navbar = () => {
             </button>
             <ul
               tabIndex={0}
-              className={`dropdown-content z-[1] menu p-3 shadow rounded-box w-56 gap-2 ${isDark ? "bg-gray-800 text-white border border-gray-700" : "bg-white text-black border border-gray-200"}`}
+              className={`dropdown-content z-[1] menu p-3 shadow rounded-box w-48 gap-2 ${isDark ? "bg-gray-800 text-white border border-gray-700" : "bg-white text-black border border-gray-200"}`}
             >
               <li className="menu-title mb-2">
                 <span
                   className={`text-sm font-semibold ${isDark ? "text-gray-300" : "text-gray-600"}`}
                 >
-                  {user.displayName || user.email || "User"}
+                  {user.displayName || "User"}
                 </span>
               </li>
               <li>
@@ -149,16 +197,17 @@ const Navbar = () => {
             </ul>
           </div>
         ) : (
+
           <>
             <Link
               to="/register"
-              className={`btn btn-sm transition-colors duration-300 ${isDark ? "bg-green-600 hover:bg-green-700 text-white border-green-600" : "bg-green-600 hover:bg-green-700 text-white border-green-600"}`}
+              className={`btn btn-sm transition-colors duration-300 ${isDark ? "bg-green-600 shadow-md text-white border-none" : "bg-green-600 hover:bg-green-700 text-white border-green-600"}`}
             >
               Sign Up
             </Link>
             <Link
               to="/login"
-              className={`btn btn-sm transition-colors duration-300 ${isDark ? "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600" : "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600"}`}
+              className={`btn btn-sm transition-colors duration-300 ${isDark ? "bg-indigo-600 shadow-md border-none bg-indigo-700 text-white border-indigo-600" : "bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600"}`}
             >
               Login
             </Link>

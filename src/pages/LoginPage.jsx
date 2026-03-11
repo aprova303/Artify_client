@@ -89,7 +89,8 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                // className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                 className={`w-full px-4 py-2 ${isDark ? 'border border-gray-600 bg-gray-700 text-white' : 'bg-white text-gray-900'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition`}
                 required
               />
             </div>
@@ -104,8 +105,9 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
-                required
+                // className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                                className={`w-full px-4 py-2 ${isDark ?'border-gray-300 bg-gray-700 text-white' : 'bg-white text-gray-900'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition
+                required`}
               />
             </div>
 
@@ -121,10 +123,11 @@ const LoginPage = () => {
 
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+              {/* <div className="w-full border-t border-gray-300 dark:border-gray-600"></div> */}
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+              {/* <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400"> */}
+                <span className={`px-2${isDark ? 'bg-gray-800  text-gray-400' : 'bg-white text-gray-500'}`}>
                 Or continue with
               </span>
             </div>
@@ -135,7 +138,8 @@ const LoginPage = () => {
             type="button"
             onClick={handleGoogleLogin}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:bg-gray-100 dark:disabled:bg-gray-600 text-gray-700 dark:text-white font-semibold py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-600 transition duration-200"
+            // className="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:bg-gray-100 dark:disabled:bg-gray-600 text-gray-700 dark:text-white font-semibold py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-600 transition duration-200"
+             className={`w-full flex items-center justify-center gap-2 ${isDark ? ' bg-gray-700 hover:bg-gray-50 hover:bg-gray-600  text-gray-700 text-white' : 'bg-white text-gray-900'} font-semibold py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-600 transition duration-200`}
           >
             <svg
               aria-label="Google logo"
@@ -169,7 +173,9 @@ const LoginPage = () => {
 
           {/* Sign Up Link */}
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p 
+            // className="text-gray-600">
+                 className={` ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
               Don't have an account?{" "}
               <Link
                 to="/register"
