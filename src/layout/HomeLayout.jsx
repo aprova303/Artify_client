@@ -17,7 +17,9 @@ const HomeLayout = () => {
         <div
           className={`${isDark ? "bg-gray-950 text-white" : "bg-white text-black"} min-h-screen transition-colors duration-300`}
         >
-          <nav className="w-11/12 mx-auto my-3 relative z-50">
+          {/* <nav className="w-11/12 mx-auto my-3 relative z-50"> */}
+          <nav className="w-11/12 mx-auto relative z-50">
+          
             <Navbar></Navbar>
             {/* <Banner></Banner> */}
           </nav>

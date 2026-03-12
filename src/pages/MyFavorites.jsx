@@ -137,29 +137,29 @@ const MyFavorites = () => {
             {favorites.map((artwork) => (
               <div
                 key={artwork._id}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1"
+                className={` ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1`}
               >
                 {/* Image */}
-                <div className="relative overflow-hidden h-64 bg-gray-200 dark:bg-gray-700">
+                <div className={`relative overflow-hidden h-64 ${isDark ? "bg-gray-700" : "bg-gray-200"}`}>
                   <img
                     src={artwork.image || "https://via.placeholder.com/400x300"}
                     alt={artwork.title}
                     className="w-full h-full object-cover hover:scale-110 transition duration-300"
                   />
-                  <div className="absolute top-3 right-3 bg-white dark:bg-gray-800 rounded-full px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                  <div className={`absolute top-3 right-3 ${isDark ? "bg-gray-800" : "bg-white"} rounded-full px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400`}>
                     {artwork.category}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-4">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 truncate">
+                  <h3 className={`text-lg font-bold ${isDark ? "text-white" : "text-gray-900"} mb-2 truncate`}>
                     {artwork.title}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"} mb-3`}>
                     by {artwork.userName}
                   </p>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+                  <p className={`text-gray-700 ${isDark ? "dark:text-gray-300" : "text-gray-600"} text-sm mb-4 line-clamp-2`}>
                     {artwork.description}
                   </p>
 

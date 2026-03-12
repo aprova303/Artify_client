@@ -170,9 +170,9 @@ const MyGallery = () => {
             {artworks.map((artwork) => (
               <div
                 key={artwork._id}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+                className={` ${isDark?"bg-gray-800" : "bg-white"} rounded-lg shadow-lg overflow-hidden`}
               >
-                <div className="h-64 bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                <div className={`h-64  ${isDark ? "bg-gray-700" : "bg-gray-200"} overflow-hidden`}>
                   <img
                     src={artwork.image}
                     alt={artwork.title}
@@ -181,10 +181,10 @@ const MyGallery = () => {
                 </div>
 
                 <div className="p-4">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                  <h3 className={`text-lg font-bold  ${isDark?"text-white" : "text-gray-900"} mb-2`}>
                     {artwork.title}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <p className={`text-sm  ${isDark?"text-gray-400":"text-gray-600"} mb-4`}>
                     {artwork.category} • {artwork.mediumTools}
                   </p>
 
@@ -240,10 +240,10 @@ const MyGallery = () => {
 
         {/* Edit Modal */}
         {showModal && editingArtwork && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="sticky top-0 bg-white dark:bg-gray-800 border-b dark:border-gray-700 p-6 flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className={`fixed inset-0  bg-black/50 flex items-center justify-center z-50 p-4`}>
+            <div className={`${isDark?"bg-gray-800":"bg-white "} rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto`}>
+              <div className={`sticky top-0  ${isDark?"bg-gray-800 border-b border-gray-700":"bg-white"} p-6 flex justify-between items-center`}>
+                <h2 className={`text-2xl font-bold  ${isDark? "text-white" : "text-gray-900"}`}>
                   Update Artwork
                 </h2>
                 <button
@@ -251,7 +251,7 @@ const MyGallery = () => {
                     setShowModal(false);
                     setEditingArtwork(null);
                   }}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 text-2xl"
+                  className={` ${isDark? "text-gray-400 hover:text-gray-300": "text-gray-500 hover:text-gray-700"} text-2xl`}
                 >
                   ✕
                 </button>
@@ -260,7 +260,7 @@ const MyGallery = () => {
               <form onSubmit={handleUpdate} className="p-6 space-y-4">
                 {/* Image URL */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-1`}>
                     Image URL
                   </label>
                   <input
@@ -268,14 +268,14 @@ const MyGallery = () => {
                     name="image"
                     value={formData.image}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                   className={`w-full px-3 py-2 border  ${isDark? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 "} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
                     required
                   />
                 </div>
 
                 {/* Title */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-1`}>
                     Title
                   </label>
                   <input
@@ -283,7 +283,7 @@ const MyGallery = () => {
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                   className={`w-full px-3 py-2 border  ${isDark? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 "} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
                     required
                   />
                 </div>
@@ -291,14 +291,14 @@ const MyGallery = () => {
                 {/* Category and Medium */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                   <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-1`}>
                       Category
                     </label>
                     <select
                       name="category"
                       value={formData.category}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                      className={`w-full px-3 py-2 border  ${isDark? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 "} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
                       required
                     >
                       <option value="Painting">Painting</option>
@@ -311,7 +311,7 @@ const MyGallery = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                   <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-1`}>
                       Medium
                     </label>
                     <input
@@ -319,7 +319,7 @@ const MyGallery = () => {
                       name="mediumTools"
                       value={formData.mediumTools}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                     className={`w-full px-3 py-2 border  ${isDark? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 "} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
                       required
                     />
                   </div>
@@ -327,7 +327,7 @@ const MyGallery = () => {
 
                 {/* Description */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+               <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-1`}>
                     Description
                   </label>
                   <textarea
@@ -335,7 +335,7 @@ const MyGallery = () => {
                     value={formData.description}
                     onChange={handleChange}
                     rows="4"
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
+                    className={`w-full px-3 py-2 border  ${isDark? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 "} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none`}
                     required
                   />
                 </div>
@@ -343,7 +343,7 @@ const MyGallery = () => {
                 {/* Dimensions and Price */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-1`}>
                       Dimensions (Optional)
                     </label>
                     <input
@@ -351,12 +351,12 @@ const MyGallery = () => {
                       name="dimensions"
                       value={formData.dimensions}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                     className={`w-full px-3 py-2 border  ${isDark? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 "} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-1`}>
                       Price (Optional)
                     </label>
                     <input
@@ -364,7 +364,7 @@ const MyGallery = () => {
                       name="price"
                       value={formData.price}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                     className={`w-full px-3 py-2 border  ${isDark? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 "} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
                       min="0"
                     />
                   </div>
@@ -372,14 +372,14 @@ const MyGallery = () => {
 
                 {/* Visibility */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                 <label className={`block text-sm font-medium  ${isDark ? "text-gray-300" : "text-gray-700"} mb-1`}>
                     Visibility
                   </label>
                   <select
                     name="visibility"
                     value={formData.visibility}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                    className={`w-full px-3 py-2 border  ${isDark? "border-gray-600 bg-gray-700 text-white" : "border-gray-300 "} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
                   >
                     <option value="Public">Public</option>
                     <option value="Private">Private</option>
@@ -400,7 +400,7 @@ const MyGallery = () => {
                       setShowModal(false);
                       setEditingArtwork(null);
                     }}
-                    className="flex-1 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-white font-semibold rounded-lg transition"
+                    className={`flex-1 py-2 ${isDark ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"}font-semibold rounded-lg transition`}
                   >
                     Cancel
                   </button>

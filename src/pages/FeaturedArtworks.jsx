@@ -135,7 +135,7 @@ const FeaturedArtworks = () => {
                   </Link>
                 </div>
               </div>
-          ))}
+              ))}
         </div>
       </div>
     </section>

@@ -81,8 +81,9 @@ const Navbar = () => {
   );
   return (
     <div
-      className={`navbar transition-colors duration-300 ${isDark ? "bg-gray-900 text-white shadow-lg shadow-gray-900" : "bg-white text-black shadow-md"}`}
+      className={` sticky top-0 z-50 w-full transition-colors duration-300 ${isDark ? "bg-gray-900 text-white shadow-lg shadow-gray-900" : "bg-white text-black shadow-md"}`}
     >
+      <div className="navbar w-11/12 mx-auto px-0">
       <div className="navbar-start">
         <div className="dropdown">
           <div
@@ -213,6 +214,7 @@ const Navbar = () => {
             </Link>
           </>
         )}
+      </div>
       </div>
     </div>
   );
